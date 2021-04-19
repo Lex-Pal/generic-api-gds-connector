@@ -1,7 +1,13 @@
 {
-  "timeZone": "America/New_York",
+  "dataStudio": {
+    "name": "Generic GDS Connector",
+    "company": "AdMediary",
+    "logoUrl": "https://admediarycorp.wpengine.com/wp-content/uploads/2018/08/ADM-logo.png",
+    "addonUrl": "https://github.com/Lex-Pal/generic-api-gds-connector",
+    "supportUrl": "https://github.com/Lex-Pal/generic-api-gds-connector",
+    "description": "Generic gds connector to get data to reports by third-party API"
+  },
   "dependencies": {
   },
-  "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"
 }
