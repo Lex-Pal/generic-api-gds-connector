@@ -56,8 +56,8 @@ function getConfig(request) {
         .newTextInput()
         .setId('url')
         .setName('Enter the URL of a JSON data source')
-        .setHelpText('e.g. https://my-url.org/json')
-        .setPlaceholder('https://my-url.org/json');
+        .setHelpText('e.g. https://api-url.org/json')
+        .setPlaceholder('https://api-url.org/json');
 
     // config
     //     .newTextInput()
@@ -65,6 +65,13 @@ function getConfig(request) {
     //     .setName('Enter API credentials in query form')
     //     .setHelpText('e.g. api_key=123&api_secret=abc')
     //     .setPlaceholder('api_key=123&api_secret=abc');
+
+    config
+        .newTextInput()
+        .setId('root')
+        .setName('Enter root JSON element for data')
+        .setHelpText('e.g. nodes, data')
+        .setPlaceholder('nodes');
 
     config
         .newCheckbox()
@@ -210,9 +217,7 @@ function createField(fields, types, key, value) {
     var semanticType = getSemanticType(value, types);
     var field =
         semanticType == types.NUMBER ? fields.newMetric() : fields.newDimension();
-    console.log('type: ', semanticType.toString());
-    console.log('id: ', key.replace(/\s/g, '_').toLowerCase());
-    console.log('name: ', key);
+
     field.setType(semanticType);
     field.setId(key.replace(/\s/g, '_').toLowerCase());
     field.setName(key);
@@ -245,16 +250,10 @@ function getElementKey(key, currentKey) {
  * @param   {boolean} isInline if true
  */
 function createFields(fields, types, key, value, isInline) {
-    console.log(isInline);
-    console.log('key: ', key);
-    console.log(value);
-    console.log(typeof value === 'object' && !Array.isArray(value) && value !== null);
     // sendUserError(JSON.stringify(key));
     if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
         Object.keys(value).forEach(function(currentKey) {
             var elementKey = getElementKey(key, currentKey);
-            console.log('currentKey: ', currentKey);
-            console.log('elementKey: ', elementKey);
             if (isInline && value[currentKey] != null) {
                 createFields(fields, types, elementKey, value[currentKey], isInline);
             } else {
@@ -301,6 +300,12 @@ function getFields(request, content) {
  */
 function getSchema(request) {
     var content = fetchData(request.configParams.url, request.configParams.cache);
+
+    const root = request.configParams.root;
+    if (root !== '' || root !== undefined || root !== null) {
+        content = content[root];
+    }
+
     var fields = getFields(request, content).build();
     return {schema: fields};
 }
@@ -431,16 +436,17 @@ function getColumns(content, requestedFields) {
  */
 function getData(request) {
     var content = fetchData(request.configParams.url, request.configParams.cache);
+    const root = request.configParams.root;
+    if (root !== '' || root !== undefined || root !== null) {
+        content = content[root];
+    }
+
     var fields = getFields(request, content);
-    //console.log(request.fields);
     var requestedFieldIds = request.fields.map(function(field) {
         return field.name;
     });
-    // console.log(requestedFieldIds);
     var requestedFields = fields.forIds(requestedFieldIds);
-    // console.log(requestedFields);
 
-    console.log(getColumns(content, requestedFields));
     return {
         schema: requestedFields.build(),
         rows: getColumns(content, requestedFields)
