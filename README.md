@@ -48,6 +48,55 @@ Enable caching by checking the 'Cache response' checkbox. This is usefull with l
 
 To develop locally we can use the `clasp` tool. More details in [the official documentation].
 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+To start working on this project you just need the following:
+* Node.js >= v6.0.0
+* Node Package Manager
+* A Google Account
+
+### Installing
+Checkout the latest master branch from GitHub and navigate to it using your Terminal or Command Prompt, then run the following to install all the dependencies:
+```
+npm install
+```
+
+If you're not already logged in Clasp with your Google Account, run
+```
+npm run clasp-login
+```
+
+The following command will initialize a new Standalone Google Apps Script with the code:
+```
+npm run new-script
+```
+
+### Running the tests
+To run the tests just run the following
+```
+npm run test
+```
+
+And to show the test coverage
+```
+npm run coverage
+```
+
+### Deployment
+After modifying the connector you can push the changes to Google Apps Script using
+```
+npm run push
+```
+
+Then open the script in your browser
+```
+npm run open
+```
+
+And use the web interface to deploy the connector as described in [their help pages].
+
+
 [Data Studio]: https://datastudio.google.com
 [JSON]: https://www.json.org/
 [Use a Community Connector]: https://developers.google.com/datastudio/connector/use
@@ -56,3 +105,4 @@ To develop locally we can use the `clasp` tool. More details in [the official do
 [creating a new data source]: https://support.google.com/datastudio/answer/6300774
 [JSONLint.com]: https://jsonlint.com/
 [the official documentation]: https://developers.google.com/apps-script/guides/clasp
+[their help pages]: https://developers.google.com/datastudio/connector/deploy
