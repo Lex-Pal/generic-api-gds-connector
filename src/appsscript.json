@@ -1,11 +1,11 @@
 {
   "dataStudio": {
-    "name": "Generic GDS Connector From JSON",
+    "name": "Generic GDS Connector by API",
     "company": "AdMediary",
     "logoUrl": "https://admediarycorp.wpengine.com/wp-content/uploads/2018/08/ADM-logo.png",
     "addonUrl": "https://github.com/Lex-Pal/generic-api-gds-connector",
     "supportUrl": "https://github.com/Lex-Pal/generic-api-gds-connector",
-    "description": "Generic gds connector to get data to reports by third-party API from JSON"
+    "description": "Generic GDS connector gets data to reports by third-party API that returns a response in a JSON form"
   },
   "dependencies": {
   },
