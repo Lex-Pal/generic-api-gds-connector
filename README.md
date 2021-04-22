@@ -1,5 +1,5 @@
 # Generic GDS connector to get data by API
-Using this connector we can use an API as data source to [Data Studio].
+Using this connector we can use an API as data source for [Data Studio] reports.
 
 ## Deploy a Community Connector yourself
 
